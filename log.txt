@@ -1,0 +1,11 @@
+commit 30becefbc838d879e5b678057298f6c7147cc0d9
+Author: victor <victor6_1@mail.ru>
+Date:   Sun Feb 14 13:33:14 2016 +0300
+
+    Add status.txt
+
+commit 25c55a2af421553eecdfffa7a338b26d3394a6d6
+Author: victor <victor6_1@mail.ru>
+Date:   Sun Feb 14 13:07:28 2016 +0300
+
+    Add 1.gitignore
