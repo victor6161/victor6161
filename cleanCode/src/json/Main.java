@@ -22,8 +22,7 @@ public class Main {
         String s = new String(buffer);
         ArrayList<Message> generic = new ArrayList<Message>() {
         };
-        ArrayList<Message> items = gson.fromJson(s, generic.getClass().getGenericSuperclass());
-        return items;
+        return gson.fromJson(s, generic.getClass().getGenericSuperclass());
     }
 
     public int menu() {
@@ -96,10 +95,10 @@ public class Main {
     private void searchKey(ArrayList<Message> message) {
         System.out.println("введите ключевое слово");
         Scanner key = new Scanner(System.in);
-        String n;
-        n = key.nextLine();
+        String k;
+        k = key.nextLine();
         for (Message aMessage : message) {
-            if (aMessage.getMessage().toString().contains(n)) {
+            if (aMessage.getMessage().contains(k)) {
                 System.out.println(aMessage.getAuthor() + " написал " + aMessage.getMessage());
             }
         }
@@ -107,10 +106,10 @@ public class Main {
 
     private void searchReg(ArrayList<Message> message) {
         Pattern pattern = Pattern.compile("[A-Z][a-z]{1,6}[!]");
-        Matcher m;
+        Matcher matcher;
         for (Message aMessage : message) {
-            m = pattern.matcher(aMessage.getMessage());
-            if (m.matches()) {
+            matcher = pattern.matcher(aMessage.getMessage());
+            if (matcher.matches()) {
                 System.out.println(aMessage.getAuthor() + " написал " + aMessage.getMessage());
             }
         }
@@ -120,37 +119,37 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        ArrayList<Message> messagesWrite;
+        ArrayList<Message> messages;
         Main m = new Main();
         while (true) {
-            messagesWrite = m.read();
+            messages = m.read();
             switch (m.menu()) {
                 case 1:
-                    messagesWrite.add(m.addMessage());
+                    messages.add(m.addMessage());
                     break;
                 case 2:
-                    m.load(messagesWrite);
+                    m.load(messages);
                     break;
                 case 3:
-                    m.show(messagesWrite);
+                    m.show(messages);
                     break;
                 case 4:
-                    messagesWrite = m.delete(messagesWrite);
+                    messages = m.delete(messages);
                     break;
                 case 5:
-                    m.searchAuthor(messagesWrite);
+                    m.searchAuthor(messages);
                     break;
                 case 6:
-                    m.searchKey(messagesWrite);
+                    m.searchKey(messages);
                     break;
                 case 7:
-                    m.searchReg(messagesWrite);
+                    m.searchReg(messages);
                     break;
                 default:
                     System.out.println("Введите правильное число");
                     break;
             }
-            m.write(messagesWrite);
+            m.write(messages);
             break;
         }
     }
