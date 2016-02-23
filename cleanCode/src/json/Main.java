@@ -121,7 +121,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ArrayList<Message> messages;
         Main m = new Main();
-        while (true) {
+
             messages = m.read();
             switch (m.menu()) {
                 case 1:
@@ -150,8 +150,8 @@ public class Main {
                     break;
             }
             m.write(messages);
-            break;
-        }
+
+
     }
 
 
