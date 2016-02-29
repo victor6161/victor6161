@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 class WorkingFiles {
-
+     final String path="C:\\Users\\victo\\work folder\\cleancode\\";
      ArrayList<Message> read() throws IOException {
 
-        File f = new File("C:\\Users\\victo\\work folder\\cleancode\\log.txt");
+        File f = new File(path+"log.txt");
 
         FileReader reader = new FileReader(f);
         char[] buffer = new char[(int) f.length()];
@@ -24,7 +24,7 @@ class WorkingFiles {
 
     void save(ArrayList<Message> message, String file) throws IOException {
         String json = new Gson().toJson(message);
-        FileWriter writer = new FileWriter("C:\\Users\\victo\\work folder\\cleancode\\" + file, false);
+        FileWriter writer = new FileWriter(path + file, false);
         try {
             writer.write(json);
         } finally {
@@ -35,7 +35,7 @@ class WorkingFiles {
 
     void write(ArrayList<Message> message) throws IOException {
         String json = new Gson().toJson(message);
-        FileWriter writer = new FileWriter("C:\\Users\\victo\\work folder\\cleancode\\log.txt", false);
+        FileWriter writer = new FileWriter(path+"log.txt", false);
         try {
             writer.write(json);
         } finally {
