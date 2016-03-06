@@ -1,6 +1,7 @@
 package json;
 
 import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 class WorkingFiles {
      final String path="C:\\Users\\victo\\work folder\\cleancode\\";
-     ArrayList<Message> read() throws IOException {
+     public ArrayList<Message> read() throws IOException {
 
         File f = new File(path+"log.txt");
 
@@ -22,9 +23,10 @@ class WorkingFiles {
         return new Gson().fromJson(s, generic.getClass().getGenericSuperclass());
     }
 
-    void save(ArrayList<Message> message, String file) throws IOException {
+    public void save(ArrayList<Message> message, String nameFile) throws IOException {
         String json = new Gson().toJson(message);
-        FileWriter writer = new FileWriter(path + file, false);
+
+        FileWriter writer = new FileWriter(path + nameFile, false);
         try {
             writer.write(json);
         } finally {
@@ -33,7 +35,7 @@ class WorkingFiles {
         }
     }
 
-    void write(ArrayList<Message> message) throws IOException {
+    public void write(ArrayList<Message> message) throws IOException {
         String json = new Gson().toJson(message);
         FileWriter writer = new FileWriter(path+"log.txt", false);
         try {

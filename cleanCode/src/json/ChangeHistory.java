@@ -12,16 +12,17 @@ class ChangeHistory {
     public ChangeHistory (ArrayList<Message> h){
         history=h;
     }
-    void add(String n, String m) throws IOException {
+
+    public void add(String authorName,String message) throws IOException {
         String uniqueID = UUID.randomUUID().toString();
-        history.add(new Message(uniqueID, n, new Date().getTime(), m));
+        history.add(new Message(uniqueID, authorName, new Date().getTime(), message));
     }
 
-    ArrayList<Message> remove(ArrayList<Message> items) {
+    public void remove() {
         boolean flag=true;
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId().equals("44ce4833-591e-42b5-84b3-e52593222810")) {
-                items.remove(i);
+        for (int i = 0; i < history.size(); i++) {
+            if (history.get(i).getId().equals("44ce4833-591e-42b5-84b3-e52593222810")) {
+                history.remove(i);
                 flag=false;
             }
         }
@@ -31,6 +32,6 @@ class ChangeHistory {
         }else {
             System.out.println("Удалено");
         }
-        return items;
+
     }
 }

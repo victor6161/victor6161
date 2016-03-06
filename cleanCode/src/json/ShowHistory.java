@@ -16,24 +16,29 @@ class ShowHistory {
 
     }
 
-    void author(String n) {
+
+    public void byAuthor( String authorName) {
+
         for (Message aMessage : history) {
-            if (aMessage.getAuthor().equals(n)) {
-                System.out.println(n + " написал " + aMessage.getMessage());
+            if (aMessage.getAuthor().equals(authorName)) {
+                System.out.println(authorName + " написал " + aMessage.getMessage());
             }
         }
     }
 
-    void key( String k) {
+    public void byKey(String keyWord) {
+
         for (Message aMessage : history) {
-            if (aMessage.getMessage().contains(k)) {
+            if (aMessage.getMessage().contains(keyWord)) {
                 System.out.println(aMessage.getAuthor() + " написал " + aMessage.getMessage());
             }
         }
     }
 
-    void reg() {
-        Pattern pattern = Pattern.compile("[A-Z][a-z]{1,6}[!]");
+    public void byRegex(String regex) {
+
+
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher;
         for (Message aMessage : history) {
             matcher = pattern.matcher(aMessage.getMessage());
@@ -42,7 +47,7 @@ class ShowHistory {
             }
         }
     }
-     void show() throws IOException {
+     public void show() throws IOException {
         Collections.sort(history, (o1, o2) -> o1.getTime().compareTo(o2.getTime()));
         for (Message aMessage : history) {
             System.out.println(aMessage.getMessage());
