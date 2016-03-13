@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script src="script.js"></script>
 <head>
   <meta charset="utf-8">
 </head>
-<body>
+<body onload="run()">
+<main class="todos">
 <div class="indicator-rectangle" >
     <div class="indicator-text"> <center>Доступ к сети</center></div>
     <div class="indicator-circle"></div>
@@ -14,16 +16,17 @@
     <div class="chat-window">
         <div class="message-history">
 		
-		      <label> User1:hey!</label>
-		      <label><p> User2:hey!</p></label>
+		      <div class="message"> User1:hey!</div>
+		      <div class="message"> User2:hey!</div>
 			
 	    </div>
 	    <div>
-            <input type="text" class="input" placeholder="Введите текст">
+            <input type="text" class="inputText" value="" placeholder="Введите текст">
             <button type="button" class="send">Отправить</button>
         </div>	
     </div>
 </center>
+</main>
 </body>
 </html>
 

@@ -20,8 +20,12 @@
     border-radius: 60px;
 	
 }
-
-.input {
+.message{
+	margin-left:10px;
+	margin-top:5px;
+	
+}
+.inputText {
 	display: inline-block;
     padding: 4px 6px;
     font-size: 14px;
@@ -60,7 +64,6 @@
 }
 
 .chat-window{
-	/*padding-top:auto;*/
 	position:relative;
 	margin-top:20%;
 	border:2px solid black;
