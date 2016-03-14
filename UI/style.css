@@ -26,20 +26,22 @@
 	
 }
 .inputText {
+	top:5px;
+	position:relative;
 	display: inline-block;
     padding: 4px 6px;
     font-size: 14px;
-    line-height: 20px;
+    /* line-height: 20px; */
     color: #555555;
     width: 342px;
     border: 1px solid #d3d3d3;
     border-radius: 4px;
     font-family: 'Open Sans';
-	
 }
 
 .send {
-	position:relative-right;
+	bottom:20px;
+	position:relative;
 	display: inline-block;
   	padding: 4px 12px;
   	font-size: 14px;
@@ -70,6 +72,17 @@
 	width:450px;
 }
 
+.login-rectangle{ 
+	 position:absolute;
+	 right:10px;
+	 top:10px;
+	 width: 200px;
+     height: 80px;
+	 background: #2A0A0A;
+	 border-radius:5px;
+	 padding-top:10px;
+	 
+}
 
 body{
 	background-color:#c0c0c0;	

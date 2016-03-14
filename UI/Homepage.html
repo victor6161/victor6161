@@ -9,23 +9,39 @@
 
 <body onload="run()">
     <main class="todos">
+	<table> 
+	   <tr>
+	   <td>
         <div class="indicator-rectangle">
             <div class="indicator-text">
                 <center>Доступ к сети</center>
             </div>
             <div class="indicator-circle"></div>
         </div>
-
+		</td>
+		<td>
+	    <div class="login-rectangle">
+            <div class="login">
+			   <center>
+                  <input type="text" name="login" placeholder="Login" maxlength="20">
+                  <input type="password" maxlength="20" placeholder="******" >
+                  <input type="button"  value="Login" class="login_button">
+			   </center>
+           </div>
+        </div>
+		</td>
+		</tr>
+	 </table>
+		
+		
         <center>
             <div class="chat-window">
                 <div class="message-history">
-
                     <div class="message"> User1:hey!</div>
                     <div class="message"> User2:hey!</div>
-
                 </div>
                 <div>
-                    <input type="text" class="inputText" value="" placeholder="Введите текст">
+                    <textarea rows="3"  class="inputText" value="" placeholder="Введите текст"></textarea>
                     <button type="button" class="send">Отправить</button>
                 </div>
             </div>
