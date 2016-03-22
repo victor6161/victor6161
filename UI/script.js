@@ -1,104 +1,101 @@
+
 var message=[];
+var messageRead=[];
 
 function run(){
-	alert("sfd");
-	var appContainer = document.getElementsByClassName('todos')[0];
-	appContainer.addEventListener('click', delegateEvent);
+	 var appContainer = document.getElementsByClassName('todos')[0];
+	 appContainer.addEventListener('click', delegateEvent);
+       messageRead=loadMessages();
+	   
+
+  message.push.apply(message,messageRead) ; 
+   for(var i=0; i<messageRead.length; i++) {
+		 addTodo(messageRead[i].author,messageRead[i].description); 	
 }
+
+    
+}
+
+function loadMessages() {
+	if(typeof(Storage) == "undefined") {
+		alert('localStorage is not accessible');
+		return;
+	}
+
+	var item = localStorage.getItem("TODOs taskList");
+
+	return item && JSON.parse(item);
+}
+
 
 function delegateEvent(evtObj) {	
 	if(evtObj.type==='click' && evtObj.target.classList.contains('send')){
-		onAddButtonClick();
+		var login=document.getElementsByName ('login')[0];
+		var todoText=document.getElementsByClassName ('inputText')[0];
+		if(login.value!=''){
+		onAddButtonClick(login.value,todoText.value);
+		}
+	}
+	if(evtObj.type==='click' && evtObj.target.classList.contains('login_button')){
+	var login=document.getElementsByName ('login')[0];
+	if(login.value!=''){
+		onAddButtonClick(login.value,'NEW User! ');
+	}
 	}
 }
 
-function onAddButtonClick(){
+function onAddButtonClick(login,todoText){
 	
-    var todoText=document.getElementsByClassName ('inputText')[0];
-	message.push(todoText);
-	addTodo(todoText.value);
+	message.push(newMessage(login,todoText));  
+	addTodo(login,todoText);
 	todoText.value='';
+	saveMessages(message);
 }
 
-function addTodo(value){
+function addTodo(login,value){
 	if(!value){
 		return;
 	}
-	var item=createText(value);
+	var item=createText(login,value);
 	var items=document.getElementsByClassName("message-history")[0];
 	items.appendChild(item);
 }
 
-function createText(text){
+function createText(login,text){
 	
-		var divItem=document.createElement('div');
-		divItem.classList.add('message');
-		divItem.appendChild(document.createTextNode("you:"+text));
-	    return divItem;
+	var divItem=document.createElement('div');
+	divItem.classList.add('message');
+	divItem.appendChild(document.createTextNode(login+':'+text));
+	return divItem;
 }
 
-
-/*function someFunc(){
-	var someVar=document.getElementsByClassName("inputText").value;
-	
-	var div=document.createElement("div");
-	div.innerHTML="You:"+someVar;
-	document.getElementsByClassName("message").appendChild(div);
-	
-}*/
-
-/*
-function run(){
-	var button=document.getElementsByClassName('send')[0];
-	button.addEventListener('click',delegateEvent)	
-}
-
-function delegateEvent(evtObj){
-	if(evtObj.type==='click' && evtObj.target.classList.contains('send'){
-		onAddButtonClick(evtObj);
+function saveMessages(listToSave) {
+	if(typeof(Storage) == "undefined") {
+		alert('localStorage is not accessible');
+		return;
 	}
-	
+	localStorage.setItem("TODOs taskList", JSON.stringify(listToSave));
 }
 
-function onAddButtonClick(){
-	var todoText=document.getElementsByClassName('inputText');
-	alert(todoText);
+function uniqueId() {
+	var date = Date.now();
+	var random = Math.random() * Math.random();
+
+	return Math.floor(date * random);
 }
 
-*/
+function newMessage(author,text) {
+	return {
+		author: author,
+		description:text,	
+		id: '' + uniqueId()
+	};
+}
 
 
+/* запустить cmd из git bash */
 
 
-
-
-
-
-
-/*
-var messages=[];
-
-(function(){
-
-	var buttons=document.getElementsByClassName('send');
-		alert("fdsdfs");
-		for(var i=0;len=buttons.length;i<len;i++)
-	buttons[i].addEventListener('click',readText,false);
-	
-	var readText=function(){
-		var text=document.getElementsByClassName('inputText');
-		alert(text);
-		message.push();
-		
-	}
-	
-})();
-*/
-
-
-     //var messages=[]
-	//var message=document.getElementsByClassName('message')[0]
-    //messages.push('message')
 
 //массив сообщение messages push
 //1 сохранять в массиве сообщение
