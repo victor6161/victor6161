@@ -20,11 +20,36 @@
     border-radius: 60px;
 	
 }
+
 .message{
+	
 	margin-left:10px;
-	margin-top:5px;
+	margin-top:15px;
+	
 	
 }
+
+.edit{
+	width:10px;
+	height:10px;
+	cursor:pointer;
+	/* width:10px; */
+	/* margin-left:100px; */
+	background: url(images/edit.png); 
+	background-size:cover; 
+    
+
+}
+.delete{
+	
+	width:10px; 
+	height:10px;
+	cursor:pointer;
+	background: url(images/delete.png); 
+	background-size:cover; 
+	
+}
+
 .inputText {
 	top:5px;
 	position:relative;

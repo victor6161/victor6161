@@ -1,4 +1,3 @@
-
 var message=[];
 var messageRead=[];
 
@@ -8,12 +7,10 @@ function run(){
        messageRead=loadMessages();
 	   
 
-  message.push.apply(message,messageRead) ; 
+   message.push.apply(message,messageRead) ; 
    for(var i=0; i<messageRead.length; i++) {
 		 addTodo(messageRead[i].author,messageRead[i].description); 	
-}
-
-    
+}    
 }
 
 function loadMessages() {
@@ -29,6 +26,7 @@ function loadMessages() {
 
 
 function delegateEvent(evtObj) {	
+
 	if(evtObj.type==='click' && evtObj.target.classList.contains('send')){
 		var login=document.getElementsByName ('login')[0];
 		var todoText=document.getElementsByClassName ('inputText')[0];
@@ -42,10 +40,31 @@ function delegateEvent(evtObj) {
 		onAddButtonClick(login.value,'NEW User! ');
 	}
 	}
+	
+	if(evtObj.type==='click' && evtObj.target.classList.contains('delete')){
+		deleteMessage(evtObj.target);
+	}
+}
+
+function deleteMessage(element){
+	
+	var index;
+    index=message.findIndex(function(item) {
+		return item.id == element.id;
+	});
+    
+	message.splice(index, 1);
+    element.parentElement.removeChild(element);
+    document.getElementsByClassName('message')[index];
+	
+	/* var textDelete=document.getElementsByClassName('message')[index]; */
+	/* textDelete.parentElement.removeChild(textDelete); */
+	
+    saveMessages(message);
+	
 }
 
 function onAddButtonClick(login,todoText){
-	
 	message.push(newMessage(login,todoText));  
 	addTodo(login,todoText);
 	todoText.value='';
@@ -62,11 +81,32 @@ function addTodo(login,value){
 }
 
 function createText(login,text){
+	var tableItem=document.createElement('table');
+	var tr=document.createElement('tr');
 	
-	var divItem=document.createElement('div');
-	divItem.classList.add('message');
-	divItem.appendChild(document.createTextNode(login+':'+text));
-	return divItem;
+	var tdMessage=document.createElement('td');
+	tdMessage.classList.add('message');
+	tdMessage.appendChild(document.createTextNode(login+':'+text));
+	
+	var tdEdit=document.createElement('td');
+	var Edit=document.createElement('div');  
+	Edit.classList.add('edit');
+	tdEdit.appendChild(Edit);
+
+	var tdDelete=document.createElement('td');
+	var Delete=document.createElement('div');  
+	Delete.classList.add('delete');
+	tdDelete.appendChild(Delete);
+	
+	tr.appendChild(tdMessage);
+	tr.appendChild(tdEdit);
+	tr.appendChild(tdDelete);
+
+
+	tableItem.appendChild(tr);
+
+	
+	return tableItem;
 }
 
 function saveMessages(listToSave) {
@@ -80,7 +120,6 @@ function saveMessages(listToSave) {
 function uniqueId() {
 	var date = Date.now();
 	var random = Math.random() * Math.random();
-
 	return Math.floor(date * random);
 }
 
@@ -88,17 +127,10 @@ function newMessage(author,text) {
 	return {
 		author: author,
 		description:text,	
-		id: '' + uniqueId()
+		id: '' + uniqueId(),
+		edit:false,
+		del:false
 	};
 }
 
-
 /* запустить cmd из git bash */
-
-
-
-//массив сообщение messages push
-//1 сохранять в массиве сообщение
-//2 попытаться зайти каждую минуту на сайт гугл пока оставить так
-//3 написать знак редактир и удаление при кот сообщение удаляется с массива или редактир
-
