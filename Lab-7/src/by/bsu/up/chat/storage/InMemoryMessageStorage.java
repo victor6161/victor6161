@@ -4,11 +4,9 @@ import by.bsu.up.chat.common.models.Message;
 import by.bsu.up.chat.logging.Logger;
 import by.bsu.up.chat.logging.impl.Log;
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonWriter;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,19 +42,25 @@ public class InMemoryMessageStorage implements MessageStorage {
         String s = new String(buffer);
         ArrayList<Message> generic = new ArrayList<Message>() {
         };
-        messages= new Gson().fromJson(s, generic.getClass().getGenericSuperclass());
+        messages = new Gson().fromJson(s, generic.getClass().getGenericSuperclass());
     }
 
     public void write(List<Message> message) throws IOException {
-        String json = new Gson().toJson(message);
-        FileWriter writer = new FileWriter("log.txt", false);
-        try {
-            writer.write(json);
-        } finally {
-            writer.flush();
-            writer.close();
-        }
+        FileWriter writer = new FileWriter("log.txt");
+        JsonWriter jsonWriter = new JsonWriter(writer);
+        jsonWriter.beginArray();
+        for (int i = 0; i < message.size(); i++) {
 
+            jsonWriter.beginObject();
+            jsonWriter.name("id").value(message.get(i).getId());
+            jsonWriter.name("author").value(message.get(i).getAuthor());
+            jsonWriter.name("text").value(message.get(i).getText());
+            jsonWriter.name("timestamp").value(message.get(i).getTimestamp());
+            jsonWriter.endObject();
+        }
+        jsonWriter.endArray();
+        jsonWriter.close();
+        writer.close();
     }
 
 
