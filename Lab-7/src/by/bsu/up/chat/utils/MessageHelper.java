@@ -130,6 +130,16 @@ public class MessageHelper {
         String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
         return id;
     }
+    public static Message getClientUpdateText(InputStream inputStream) throws ParseException {
+        JSONObject jsonObject = stringToJsonObject(inputStreamToString(inputStream));
+        String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
+
+        String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
+        Message message=new Message();
+        message.setId(id);
+        message.setText(text);
+        return message;
+    }
 
     public static JSONObject stringToJsonObject(String json) throws ParseException {
         // The same as (JSONObject) jsonParser.parse(json.trim());

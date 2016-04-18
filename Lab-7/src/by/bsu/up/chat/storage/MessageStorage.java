@@ -24,7 +24,9 @@ public interface MessageStorage {
      * @param message the message to be saved
      * @return true if message was updated successfully and false otherwise
      */
-    boolean updateMessage(Message message);
+
+
+    boolean updateMessage(String messageId, String text) throws IOException;
 
     /**
      * Removes the message with the given id

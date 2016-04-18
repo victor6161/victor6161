@@ -63,7 +63,6 @@ public class InMemoryMessageStorage implements MessageStorage {
         writer.close();
     }
 
-
     @Override
     public void addMessage(Message message) throws IOException {
         messages.add(message);
@@ -71,15 +70,22 @@ public class InMemoryMessageStorage implements MessageStorage {
     }
 
     @Override
-    public boolean updateMessage(Message message) {
-        throw new UnsupportedOperationException("Update for messages is not supported yet");
+    public boolean updateMessage(String messageId, String text) throws IOException {
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i).getId().equals(messageId)) {
+                messages.get(i).setText(text);
+                write(messages);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public synchronized boolean removeMessage(String messageId) throws IOException {
-        for (int i = 0; i<messages.size(); i++){
+        for (int i = 0; i < messages.size(); i++) {
 
-            if (messages.get(i).getId().equals(messageId)){
+            if (messages.get(i).getId().equals(messageId)) {
 
                 messages.remove(i);
                 write(messages);

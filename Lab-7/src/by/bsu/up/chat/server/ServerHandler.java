@@ -102,8 +102,16 @@ public class ServerHandler implements HttpHandler {
         }
     }
 
-    private Response doPut(HttpExchange httpExchange) {
-        return Response.withCode(Constants.RESPONSE_CODE_NOT_IMPLEMENTED);
+    private Response doPut(HttpExchange httpExchange) throws IOException {
+        try {
+            Message message = MessageHelper.getClientUpdateText(httpExchange.getRequestBody());
+            logger.info(String.format("Update message from user id=: %s text: %s", message.getId(), message.getText()));
+            messageStorage.updateMessage(message.getId(), message.getText());
+            return Response.ok();
+        } catch (ParseException e) {
+            logger.error("Could not parse message.", e);
+            return new Response(Constants.RESPONSE_CODE_BAD_REQUEST, "Incorrect request body");
+        }
     }
 
     private Response doDelete(HttpExchange httpExchange) throws IOException {
@@ -119,7 +127,7 @@ public class ServerHandler implements HttpHandler {
     }
 
     private Response doOptions(HttpExchange httpExchange) {
-        httpExchange.getResponseHeaders().add(Constants.REQUEST_HEADER_ACCESS_CONTROL_METHODS,Constants.HEADER_VALUE_ALL_METHODS);
+        httpExchange.getResponseHeaders().add(Constants.REQUEST_HEADER_ACCESS_CONTROL_METHODS, Constants.HEADER_VALUE_ALL_METHODS);
         return Response.ok();
     }
 
@@ -128,10 +136,10 @@ public class ServerHandler implements HttpHandler {
             byte[] bytes = response.getBody().getBytes();
 
             Headers headers = httpExchange.getResponseHeaders();
-            headers.add(Constants.REQUEST_HEADER_ACCESS_CONTROL_ORIGIN,"*");
+            headers.add(Constants.REQUEST_HEADER_ACCESS_CONTROL_ORIGIN, "*");
             httpExchange.sendResponseHeaders(response.getStatusCode(), bytes.length);
 
-            os.write( bytes);
+            os.write(bytes);
             // there is no need to close stream manually
             // as try-catch with auto-closable is used
             /**
@@ -161,7 +169,8 @@ public class ServerHandler implements HttpHandler {
      * {@link ServerHandler#queryToMap(String)} one, but uses
      * Java's 8 Stream API and lambda expressions
      * <p>
-     *     It's just as an example. Bu you can use it
+     * It's just as an example. Bu you can use it
+     *
      * @param query the query to be parsed
      * @return the map, containing parsed key-value pairs from request
      */
