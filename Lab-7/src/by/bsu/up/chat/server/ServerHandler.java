@@ -31,6 +31,7 @@ public class ServerHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+
         Response response;
         messageStorage.read();
         try {
@@ -105,8 +106,16 @@ public class ServerHandler implements HttpHandler {
         return Response.withCode(Constants.RESPONSE_CODE_NOT_IMPLEMENTED);
     }
 
-    private Response doDelete(HttpExchange httpExchange) {
-        return Response.withCode(Constants.RESPONSE_CODE_NOT_IMPLEMENTED);
+    private Response doDelete(HttpExchange httpExchange) throws IOException {
+        try {
+            String id = MessageHelper.getClientId(httpExchange.getRequestBody());
+            logger.info(String.format("Delete message from user id=: %s", id));
+            messageStorage.removeMessage(id);
+            return Response.ok();
+        } catch (ParseException e) {
+            logger.error("Could not parse message.", e);
+            return new Response(Constants.RESPONSE_CODE_BAD_REQUEST, "Incorrect request body");
+        }
     }
 
     private Response doOptions(HttpExchange httpExchange) {

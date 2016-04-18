@@ -76,8 +76,17 @@ public class InMemoryMessageStorage implements MessageStorage {
     }
 
     @Override
-    public synchronized boolean removeMessage(String messageId) {
-        throw new UnsupportedOperationException("Removing of messages is not supported yet");
+    public synchronized boolean removeMessage(String messageId) throws IOException {
+        for (int i = 0; i<messages.size(); i++){
+
+            if (messages.get(i).getId().equals(messageId)){
+
+                messages.remove(i);
+                write(messages);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

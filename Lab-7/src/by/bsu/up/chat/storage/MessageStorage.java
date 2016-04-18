@@ -31,7 +31,7 @@ public interface MessageStorage {
      * @param messageId the id of message which should be deleted
      * @return true if message was deleted successfully and false otherwise
      */
-    boolean removeMessage(String messageId);
+    boolean removeMessage(String messageId) throws IOException;
 
 
     /**
