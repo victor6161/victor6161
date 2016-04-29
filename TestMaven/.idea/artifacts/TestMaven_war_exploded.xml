@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="TestMaven:war exploded">
+    <output-path>$PROJECT_DIR$/target/TestMaven</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="TestMaven" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="TestMaven-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="TestMaven" />
+          </element>
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/TestMaven/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="TestMaven/web/Web" />
+    </root>
+  </artifact>
+</component>
