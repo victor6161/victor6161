@@ -33,9 +33,7 @@ public class InMemoryMessageStorage implements MessageStorage {
     }
 
     public void read() throws IOException {
-
         File f = new File("log.txt");
-
         FileReader reader = new FileReader(f);
         char[] buffer = new char[(int) f.length()];
         reader.read(buffer);
@@ -50,7 +48,6 @@ public class InMemoryMessageStorage implements MessageStorage {
         JsonWriter jsonWriter = new JsonWriter(writer);
         jsonWriter.beginArray();
         for (int i = 0; i < message.size(); i++) {
-
             jsonWriter.beginObject();
             jsonWriter.name("id").value(message.get(i).getId());
             jsonWriter.name("author").value(message.get(i).getAuthor());

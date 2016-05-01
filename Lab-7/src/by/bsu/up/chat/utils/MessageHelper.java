@@ -113,8 +113,9 @@ public class MessageHelper {
 
     public static Message getClientMessage(InputStream inputStream) throws ParseException {
         JSONObject jsonObject = stringToJsonObject(inputStreamToString(inputStream));
-        String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
+        String id = ((String)jsonObject.get(Constants.Message.FIELD_ID));
         String author = ((String) jsonObject.get(Constants.Message.FIELD_AUTHOR));
+
         long timestamp = ((long) jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
         String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
         Message message = new Message();

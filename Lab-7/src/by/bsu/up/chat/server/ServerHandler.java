@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 public class ServerHandler implements HttpHandler {
 
     private static final Logger logger = Log.create(ServerHandler.class);
@@ -92,6 +93,7 @@ public class ServerHandler implements HttpHandler {
 
     private Response doPost(HttpExchange httpExchange) throws IOException {
         try {
+
             Message message = MessageHelper.getClientMessage(httpExchange.getRequestBody());
             logger.info(String.format("Received new message from user: %s", message));
             messageStorage.addMessage(message);
@@ -127,7 +129,6 @@ public class ServerHandler implements HttpHandler {
     }
 
     private Response doOptions(HttpExchange httpExchange) {
-        httpExchange.getResponseHeaders().add(Constants.REQUEST_HEADER_ACCESS_CONTROL_METHODS, Constants.HEADER_VALUE_ALL_METHODS);
         return Response.ok();
     }
 
@@ -137,6 +138,8 @@ public class ServerHandler implements HttpHandler {
 
             Headers headers = httpExchange.getResponseHeaders();
             headers.add(Constants.REQUEST_HEADER_ACCESS_CONTROL_ORIGIN, "*");
+            httpExchange.getResponseHeaders().add(Constants.REQUEST_HEADER_ACCESS_CONTROL_METHODS, Constants.HEADER_VALUE_ALL_METHODS);
+            httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             httpExchange.sendResponseHeaders(response.getStatusCode(), bytes.length);
 
             os.write(bytes);
