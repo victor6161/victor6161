@@ -1,12 +1,12 @@
 var message=[];
 var messageRead=[];
-
-function newMessage(author,description) {
+var i=0;
+function nMessage(author,description) {
 	return {
 		author: author,
 		text:description,	
-		id: '' + uniqueId(),
-	    timestamp:''+new Date().getTime(),
+		id: String(uniqueId()),
+	    timestamp:Number(new Date().getTime()),
 	};
 }
 
@@ -15,7 +15,7 @@ function run(){
    appContainer.addEventListener('click', delegateEvent);
    loadMessages(function(messageRead){
 	    var m=messageRead.messages;
-	    /* message.push.apply(message,m) ;  */
+	    
 	    for(var i=0; i<m.length; i++) {
 			addTodo(m[i].author,m[i].text); 	
 		}    
@@ -74,48 +74,15 @@ function delegateEvent(evtObj) {
 		deleteMessage(evtObj.target);
 	}
 }
-/*
-function deleteMessage(element){
-	
-	var index;
-    index=message.findIndex(function(item) {
-		return item.id == element.id;
-	});
-    
-	message.splice(index, 1);
-    element.parentElement.removeChild(element);
-    document.getElementsByClassName('message')[index];
-	
-	/* var textDelete=document.getElementsByClassName('message')[index]; */
-	/* textDelete.parentElement.removeChild(textDelete); */
-	/*
-    saveMessages(message);
-	
-}*/
 
 function onAddButtonClick(login,todoText){
-	message.push(newMessage(login,todoText));  
+	message.push(nMessage(login,todoText));  
 	addTodo(login,todoText);
 	todoText.value='';
 	saveMessages(message); 
 }
 
-/* function onAddButtonClick(login,todoText){
-	var newMessageBox = document.getElementById('newMessage');
-	var newMessage = theMessage(newMessageBox.value);
 
-	if(newMessageBox.value == '')
-		return;
-
-	newMessageBox.value = '';
-	sendMessage(newMessage, function() {
-		console.log('Message sent ' + newMessage.text);
-	});
-} *//*Метод JSON.stringify() преобразует значение JavaScript в строку JSON*/
- /*
-function sendMessage(message) { 
-	post(appState.mainUrl, JSON.stringify(message),) 
-}*/
 
 function addTodo(login,value){
 	if(!value){
@@ -154,19 +121,21 @@ function createText(login,text){
 }
 
 function saveMessages(login,value) {
-	/* if(typeof(Storage) == "undefined") {
-		alert('localStorage is not accessible');
-		return;
-	}
-	localStorage.setItem("TODOs taskList", JSON.stringify(listToSave)); */
+	
+	var json;
 	var url = 'http://localhost:8080/chat?token=TN11EN';
 	var xhttp  = new XMLHttpRequest();
-    var json = JSON.stringify(new newMessage(login,value));
-    
+    json = JSON.stringify(login,value);
     xhttp.open("POST", url, true);
-    xhttp.setRequestHeader('Content-Type','application/json'); 
-    xhttp.send(json);
-
+    xhttp.setRequestHeader("Content-Type","application/json"); 
+	
+	if(i==0){
+    xhttp.send(json.slice(1,json.length-1));
+	}
+	else{
+	xhttp.send(json.slice(json.lastIndexOf('},')+2,json.length-1));
+	}
+	i++;
 }
 
 function uniqueId() {
