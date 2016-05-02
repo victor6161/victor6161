@@ -37,8 +37,6 @@ class Main {
                     System.out.println("Введите автора");
                     String authorName = input.readConsole(scanner);
                     showHistory.byAuthor(authorName);
-                    // var author = readAuthor(scanner);
-                    // history.searchBy(author);
                     break;
                 case 6:
                     System.out.println("Введите ключ");

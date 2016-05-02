@@ -134,7 +134,6 @@ public class MessageHelper {
     public static Message getClientUpdateText(InputStream inputStream) throws ParseException {
         JSONObject jsonObject = stringToJsonObject(inputStreamToString(inputStream));
         String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
-
         String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
         Message message=new Message();
         message.setId(id);

@@ -3,7 +3,7 @@ package json;
 
 import java.util.Date;
 
-public class Message {
+ class Message {
     public void setId(String id) {
         this.id = id;
     }
