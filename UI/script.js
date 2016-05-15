@@ -1,5 +1,5 @@
 var message=[];
-var messageRead=[];
+
 var i=0;
 function nMessage(author,description) {
 	return {
@@ -75,6 +75,10 @@ function delegateEvent(evtObj) {
 	}
 }
 
+function deleteMessage(){
+	
+}
+
 function onAddButtonClick(login,todoText){
 	message.push(nMessage(login,todoText));  
 	addTodo(login,todoText);
@@ -121,7 +125,6 @@ function createText(login,text){
 }
 
 function saveMessages(login,value) {
-	
 	var json;
 	var url = 'http://localhost:8080/chat?token=TN11EN';
 	var xhttp  = new XMLHttpRequest();
@@ -129,14 +132,15 @@ function saveMessages(login,value) {
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-Type","application/json"); 
 	
-	if(i==0){
-    xhttp.send(json.slice(1,json.length-1));
+	if(!i){
+		xhttp.send(json.slice(1,json.length-1));
+		i++;
 	}
 	else{
-	xhttp.send(json.slice(json.lastIndexOf('},')+2,json.length-1));
-	}
-	i++;
+		xhttp.send(json.slice(json.lastIndexOf('},')+2,json.length-1));
+	}	
 }
+
 
 function uniqueId() {
 	var date = Date.now();
