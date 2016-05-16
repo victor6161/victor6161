@@ -1,16 +1,37 @@
 package javaa;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.google.gson.Gson;
 
-public class Storage {
-    public static final ArrayList<User> users
-            = new ArrayList<User>(Arrays.asList(
-            new User("ivanov", "10iut"),
-            new User("petrov", "10ddd"),
-            new User("sidorov", "12vvv"),
-            new User("mishin", "12trt"),
-            new User("vasin", "14qwe")
-    ));
+import javax.servlet.http.HttpServlet;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class Storage extends HttpServlet {
+    ArrayList<User> usersList;
+
+    Storage() throws IOException {
+        File f = new File(getUsersPath());
+        FileReader reader = new FileReader(f);
+        char[] buffer = new char[(int) f.length()];
+        reader.read(buffer);
+        String s = new String(buffer);
+        System.out.print(s);
+        ArrayList<User> generic = new ArrayList<User>() {
+        };
+        usersList=new Gson().fromJson(s, generic.getClass().getGenericSuperclass());
+    }
+
+    private String getProjectPath() {
+        String path = getServletContext().getRealPath("/");
+
+        return path.substring(0, path.length() - 11);
+    }
+
+    private String getUsersPath() {
+        return getProjectPath() + "users.txt";
+    }
+
 
 }

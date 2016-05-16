@@ -1,16 +1,16 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="Maven11:war exploded">
+  <artifact type="exploded-war" name="qq:war exploded">
     <output-path>$PROJECT_DIR$/target/qq</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="Maven11" />
+          <element id="module-output" name="qq" />
         </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/qq/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="Maven11/web/Web" />
+      <element id="javaee-facet-resources" facet="qq/web/Web" />
     </root>
   </artifact>
 </component>
