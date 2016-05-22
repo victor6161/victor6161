@@ -1,6 +1,6 @@
 var message=[];
-
-var i=0;
+var len=0;
+var k=0;
 function nMessage(author,description) {
 	return {
 		author: author,
@@ -11,18 +11,38 @@ function nMessage(author,description) {
 }
 
 function run(){
-   var appContainer = document.getElementsByClassName('todos')[0];
-   appContainer.addEventListener('click', delegateEvent);
-   loadMessages(function(messageRead){
-	    var m=messageRead.messages;
-	    
-	    for(var i=0; i<m.length; i++) {
-			addTodo(m[i].author,m[i].text); 	
-		}    
-   });
-  
+	/* setInterval('alert("прошла секунда")', 1000) */
+	var appContainer = document.getElementsByClassName('todos')[0];
+	appContainer.addEventListener('click', delegateEvent);
+	/* loadMessages(onMessagesLoad); */
+    setInterval( function() {
+		loadMessages(onMessagesLoad);
+	},10000);	
 }
-
+function clearWindow(l){
+	var i;
+	 for(i=0;i<l;i++){ 
+			var items=document.getElementsByClassName("message")[i]; 
+			/* var itemDel=document.getElementsByClassName("delete")[0];
+			var itemEdit=document.getElementsByClassName("edit")[0];  */
+			items.parentNode.removeChild(items); 
+			/*itemDel.parentNode.removeChild(itemDel);
+			itemEdit.parentNode.removeChild(itemEdit);  
+			message.splice(0, message.length); */
+	 }
+}
+	
+function onMessagesLoad(messageRead){
+	//привязка чтобы внизу окна было, очистку
+	clearWindow(len); 
+	var m=messageRead.messages;
+	    
+	for(var i=0; i<m.length; i++) {
+		addTodo(m[i].author,m[i].text); 	
+	}
+	len=m.length;
+}
+	
 function loadMessages(callback) {
 	/* if(typeof(Storage) == "undefined") {
 		alert('localStorage is not accessible');
@@ -36,24 +56,18 @@ function loadMessages(callback) {
 	
  	 var url = 'http://localhost:8080/chat?token=TN11EN';
      var xhttp = new XMLHttpRequest();
-  
+     
      xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
+	 if (xhttp.readyState == 4 && xhttp.status == 200) {
 		  var json = JSON.parse(xhttp.responseText);
 		  /* var text = JSON.stringify(json, null, '\t');   */
 		  /* console.log(json);  */
 		  callback(json);
 	  }
 	};
-  
    xhttp.open("GET", url, true);
    xhttp.send();
-  } 
- 
-	
-
-	
-
+  }
 
 function delegateEvent(evtObj) {	
 	if(evtObj.type==='click' && evtObj.target.classList.contains('send')){
@@ -132,9 +146,9 @@ function saveMessages(login,value) {
     xhttp.open("POST", url, true);
     xhttp.setRequestHeader("Content-Type","application/json"); 
 	
-	if(!i){
+	if(!k){
 		xhttp.send(json.slice(1,json.length-1));
-		i++;
+		k++;
 	}
 	else{
 		xhttp.send(json.slice(json.lastIndexOf('},')+2,json.length-1));
@@ -149,5 +163,12 @@ function uniqueId() {
 }
 
 
-
-/* ��������� cmd �� git bash */
+ /*   setInterval(loadMessages(function(messageRead){
+	    alert("mess");
+	    var m=messageRead.messages;
+	    
+	    for(var i=0; i<m.length; i++) {
+			addTodo(m[i].author,m[i].text); 	
+		}    
+   }),1000); */
+/* ��������� cmd �� git bash */
