@@ -1,0 +1,1 @@
+select name,date_message,text from messages,users where users.id_user=messages.id_user order by messages.date_message;

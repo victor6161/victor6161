@@ -1,0 +1,1 @@
+select text from messages order by date_message

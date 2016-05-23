@@ -1,0 +1,1 @@
+select name from users where id_user in (select id_user from messages group by id_user having count(text)>3);

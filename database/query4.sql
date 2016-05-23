@@ -1,0 +1,1 @@
+select text from messages where id_user='5' and text like '%hello%';
