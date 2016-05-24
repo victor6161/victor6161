@@ -1,0 +1,1 @@
+select current_date()-(select date_message from messages order by date_message limit 1) 

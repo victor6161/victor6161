@@ -1,1 +1,1 @@
-select text from messages order by date_message
+select text,date_message from messages order by date_message

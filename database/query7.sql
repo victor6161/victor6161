@@ -1,1 +1,1 @@
-select distinct name from users;select distinct name from users; 
+select distinct name from users;
