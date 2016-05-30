@@ -3,14 +3,24 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <servlet>
-    <servlet-name>Login</servlet-name>
-    <servlet-class>javaa.Login</servlet-class>
-  </servlet>
 
-  <servlet-mapping>
-    <servlet-name>Login</servlet-name>
-    <url-pattern>/log</url-pattern>
-  </servlet-mapping>
+  <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>by.bsu.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChatDispatcher</servlet-name>
+        <servlet-class>by.bsu.ChatDispatcher</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/log</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ChatDispatcher</servlet-name>
+        <url-pattern>/chat</url-pattern>
+    </servlet-mapping>
 </web-app>
